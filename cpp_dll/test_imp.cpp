@@ -3,6 +3,11 @@
 
 static unsigned id = 0;
 
+TestImp::TestImp()
+{
+
+}
+
 unsigned TestImp::GetCurrentUserId()
 {
     return id++;

@@ -8,6 +8,6 @@ public:
 	virtual unsigned GetCurrentUserId() = 0;
     virtual void Start() = 0;
     virtual void Stop() = 0;
-}
+};
 
 #endif // IMYEXPORT_H

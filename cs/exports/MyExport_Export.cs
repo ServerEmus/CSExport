@@ -11,7 +11,7 @@ public static unsafe class MyExportExports
     };
 
     [UnmanagedCallersOnly(EntryPoint = "CreateMyExportInstance")]
-    public static MyExportInstance* CreateMyExportInstance()
+    public static MyExportInstance* CreateMyExportInstance() // we might need to make it as InPtr.
     {
         var instance = new MyExport();
         var handle = GCHandle.Alloc(instance);
@@ -46,7 +46,7 @@ public static unsafe class MyExportExports
     }
 
     [UnmanagedCallersOnly(EntryPoint = "DestroyMyExportInstance")]
-    public static void DestroyMyExportInstance(MyExportInstance* pThis)
+    public static void DestroyMyExportInstance(MyExportInstance* pThis) // this might not work here.
     {
         if (pThis == null) return;
         pThis->Handle.Free();

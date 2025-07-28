@@ -4,10 +4,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Platforms>AnyCPU;x86;x64</Platforms>
-	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-	<IsAotCompatible>True</IsAotCompatible>
-	<PublishAot>true</PublishAot>
+	  <Platforms>AnyCPU;x86;x64</Platforms>
+	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	  <IsAotCompatible>True</IsAotCompatible>
+	  <PublishAot>true</PublishAot>
   </PropertyGroup>
   
 </Project>

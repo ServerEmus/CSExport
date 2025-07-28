@@ -1,0 +1,12 @@
+#ifndef IMYEXPORT_H
+#define IMYEXPORT_H
+
+class IMyExport
+{
+public:
+	virtual uint32 GetCurrentUserId() = 0;
+    virtual void Start() = 0;
+    virtual void Stop() = 0;
+}
+
+#endif // IMYEXPORT_H

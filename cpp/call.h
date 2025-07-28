@@ -14,6 +14,8 @@
 
 #include "test.h"
 
+#pragma comment(lib, "../Out/LIB/testexport.lib")
+/*
 #ifdef __cplusplus
 extern "C"
 {
@@ -24,7 +26,7 @@ DLL IMyExport* CALLTYPE CreateMyExportInstance();
 
 #ifdef __cplusplus
 }
-#endif
+#endif*/
 //#define API_DLL extern "C" __declspec( dllimport )
 /*
 API_DLL IMyExport* CALLTYPE CreateMyExportInstance();

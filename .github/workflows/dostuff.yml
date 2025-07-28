@@ -35,6 +35,12 @@ jobs:
     - name: Build CPP DLL
       run: msbuild cpp_dll/testexportdll.vcxproj -t:rebuild -p:OutDir="../Out/CPPDLL/" -p:Configuration=Release -p:Platform=x64
 
+    - name : Upload
+      uses: actions/upload-artifact@v4.3.5
+      with:
+        name: Exports 
+        path: Out/*
+
     - name: Build EXE
       run: msbuild cpp/testexportexe.vcxproj -t:rebuild -p:OutDir="../Out/CPP/" -p:Configuration=Release -p:Platform=x64
 

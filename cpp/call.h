@@ -9,8 +9,10 @@
 #include <windows.h>
 #endif
 
+#pragma comment(lib, "testexport.lib")
+
 #define CALLTYPE __cdecl
-#define API_DLL extern "C" __declspec( dllimport ) 
+#define API_DLL __declspec( dllimport ) 
 
 API_DLL IMyExport* CALLTYPE CreateMyExportInstance();
 API_DLL unsigned CALLTYPE MyExport_GetCurrentUserId( IMyExport* ptr );

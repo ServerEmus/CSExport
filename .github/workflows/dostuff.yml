@@ -36,4 +36,4 @@ jobs:
         path: Out/*
 
     - name: Build
-      run: msbuild cpp/testexport.csproj -t:rebuild -p:OutDir=Out;Configuration=Release
+      run: msbuild cpp/testexport.csproj -t:rebuild -p:OutDir=Out -p:Configuration=Release

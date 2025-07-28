@@ -55,7 +55,6 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LibraryPath>../Out/LIB;$(LibraryPath)</LibraryPath>
-      <AdditionalDependencies>testexport.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,10 +69,10 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <LibraryPath>../Out/LIB;$(LibraryPath)</LibraryPath>
-      <AdditionalDependencies>testexport.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions> /Zc:__cplusplus </AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,9 +83,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="test.h" />
+    <ClInclude Include="call.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <Library Include="../Out/LIB/testexport.lib">
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

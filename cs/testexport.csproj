@@ -8,6 +8,7 @@
 	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	  <IsAotCompatible>True</IsAotCompatible>
 	  <PublishAot>true</PublishAot>
+    <DebuggerSupport>False</DebuggerSupport>
   </PropertyGroup>
   
 </Project>

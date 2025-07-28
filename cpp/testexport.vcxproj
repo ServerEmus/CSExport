@@ -54,7 +54,8 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalDependencies>Out\testexport.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <LibraryPath>Out;$(LibraryPath)</LibraryPath>
+      <AdditionalDependencies>testexport.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -71,7 +72,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalDependencies>Out\testexport.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <LibraryPath>Out;$(LibraryPath)</LibraryPath>
+      <AdditionalDependencies>testexport.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

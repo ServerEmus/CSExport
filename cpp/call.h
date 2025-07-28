@@ -2,6 +2,8 @@
 #define CALL_H
 #pragma once
 
+#include <string>
+
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -12,9 +14,17 @@
 
 #include "test.h"
 
-extern "C" {
-    DLL IMyExport* CALLTYPE CreateMyExportInstance();
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+DLL IMyExport* CALLTYPE CreateMyExportInstance();
+
+
+#ifdef __cplusplus
 }
+#endif
 //#define API_DLL extern "C" __declspec( dllimport )
 /*
 API_DLL IMyExport* CALLTYPE CreateMyExportInstance();

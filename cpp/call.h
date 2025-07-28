@@ -17,7 +17,6 @@
 
 DLL IMyExport* CALLTYPE CreateMyExportInstance();
 
-
 //#define API_DLL extern "C" __declspec( dllimport )
 /*
 API_DLL IMyExport* CALLTYPE CreateMyExportInstance();

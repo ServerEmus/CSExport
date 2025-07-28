@@ -36,4 +36,4 @@ jobs:
         path: Out/*
 
     - name: Build
-      run: msbuild cpp/testexport.vcxproj -t:rebuild -p:OutDir=Out -p:Configuration=Release -p:Platfrom=x64
+      run: msbuild cpp/testexport.vcxproj -t:rebuild -p:OutDir=Out -p:Configuration=Release -p:Platform=x64

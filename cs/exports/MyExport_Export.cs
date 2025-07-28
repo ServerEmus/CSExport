@@ -10,7 +10,7 @@ public static unsafe class MyExportExports
         Stop = &StopImpl
     };
 
-    [UnmanagedCallersOnly(EntryPoint = "CreateMyExportInstance")]
+    [UnmanagedCallersOnly(EntryPoint = "CreateMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
     public static MyExportInstance* CreateMyExportInstance() // we might need to make it as InPtr.
     {
         var instance = new MyExport();
@@ -21,31 +21,31 @@ public static unsafe class MyExportExports
         return native;
     }
 
-    [UnmanagedCallersOnly]
-    public static uint GetCurrentUserIdImpl(IntPtr pThis)
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_GetCurrentUserId", CallConvs = [typeof(CallConvCdecl)])]
+    public static uint MyExport_GetCurrentUserId(IntPtr pThis)
     {
         var inst = (MyExportInstance*)pThis;
         var obj = (MyExport)inst->Handle.Target!;
         return obj.GetCurrentUserId();
     }
 
-    [UnmanagedCallersOnly]
-    public static void StartImpl(IntPtr pThis)
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_Start", CallConvs = [typeof(CallConvCdecl)])]
+    public static void MyExport_Start(IntPtr pThis)
     {
         var inst = (MyExportInstance*)pThis;
         var obj = (MyExport)inst->Handle.Target!;
         obj.Start();
     }
 
-    [UnmanagedCallersOnly]
-    public static void StopImpl(IntPtr pThis)
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_Stop", , CallConvs = [typeof(CallConvCdecl)])]
+    public static void MyExport_Stop(IntPtr pThis)
     {
         var inst = (MyExportInstance*)pThis;
         var obj = (MyExport)inst->Handle.Target!;
         obj.Stop();
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "DestroyMyExportInstance")]
+    [UnmanagedCallersOnly(EntryPoint = "DestroyMyExportInstance", , CallConvs = [typeof(CallConvCdecl)])]
     public static void DestroyMyExportInstance(MyExportInstance* pThis) // this might not work here.
     {
         if (pThis == null) return;

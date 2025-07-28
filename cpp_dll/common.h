@@ -11,7 +11,7 @@
 #include <tchar.h>
 
 #define CALLTYPE __cdecl
-#define DLL __declspec( dllexport )
+#define DLL extern "C" __declspec( dllexport )
 
 #include "test.h"
 

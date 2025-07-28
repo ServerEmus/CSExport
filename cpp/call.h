@@ -11,7 +11,7 @@
 #include <tchar.h>
 
 #define CALLTYPE __cdecl
-#define API_DLL __declspec( dllimport )
+#define API_DLL extern "C" __declspec( dllimport )
 
 #include "test.h"
 

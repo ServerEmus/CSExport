@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{96F21549-A7BF-4695-A1B1-B43625B91A14}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TestExportExe</RootNamespace>

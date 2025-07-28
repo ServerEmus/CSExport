@@ -2,6 +2,8 @@
 #define IMYEXPORT_H
 #pragma once
 
+#include <iostream>
+
 class IMyExport
 {
 public:

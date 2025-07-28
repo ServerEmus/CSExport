@@ -7,7 +7,7 @@
 #include <windows.h>
 #endif
 
-#pragma comment(lib, "testexport.lib")
+#pragma comment(lib, "Out/LIB/testexport.lib")
 
 //#define CALLTYPE __cdecl
 //#define API_DLL extern "C" __declspec( dllimport )

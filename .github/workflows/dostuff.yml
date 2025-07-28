@@ -32,10 +32,11 @@ jobs:
     - name: Build CPP DLL
       run: msbuild cpp_dll/testexportdll.vcxproj -t:rebuild -p:OutDir="../Out/CPPDLL/" -p:Configuration=Release -p:Platform=x64
 
-    - name: TEST
-      run: |
-        mkdir Out/DLL_LIB
-        copy "cs/bin/x64/Release/net9.0/win-x64/native" "Out/DLL_LIB"
+    - name: mkdir
+      run: mkdir Out/DLL_LIB
+
+    - name: copy
+      run: copy "cs/bin/x64/Release/net9.0/win-x64/native" "Out/DLL_LIB"
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5

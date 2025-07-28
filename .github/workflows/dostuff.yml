@@ -27,11 +27,8 @@ jobs:
         msbuild-architecture: x64
 
     - name: Build DLL
-      run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64 -o Out/DLL
+      run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64
 
-    - name: Build LIB
-      run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64 -p:NativeLib=Static -o Out/LIB
-      
     - name: Build CPP DLL
       run: msbuild cpp_dll/testexportdll.vcxproj -t:rebuild -p:OutDir="../Out/CPPDLL/" -p:Configuration=Release -p:Platform=x64
 
@@ -57,5 +54,5 @@ jobs:
 
     - name: TEST
       run: |
-        copy Out/DLL/testexport.dll Out/CPP
+        copy Out/DLL_LIB/testexport.dll Out/CPP
         Out/CPP/testexportexe.exe

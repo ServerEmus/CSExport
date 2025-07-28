@@ -35,7 +35,7 @@ jobs:
     - name: TEST
       run: |
         mkdir Out/DLL_LIB
-        copy "cs/bin/Release/net9.0/win-x64/native" "Out/DLL_LIB"
+        copy "cs/x64/bin/Release/net9.0/win-x64/native" "Out/DLL_LIB"
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5

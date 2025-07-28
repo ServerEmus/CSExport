@@ -11,11 +11,16 @@
 #include <tchar.h>
 
 #define CALLTYPE __cdecl
-#define DLL extern "C" __declspec( dllimport )
+#define DLL __declspec( dllimport )
 
 #include "test.h"
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 DLL IMyExport* CALLTYPE CreateMyExportInstance();
+#ifdef __cplusplus
+}
+#endif
 
 //#define API_DLL extern "C" __declspec( dllimport )
 /*

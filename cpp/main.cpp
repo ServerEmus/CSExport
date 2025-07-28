@@ -1,7 +1,8 @@
-#include "test.h"
 #include <iostream>
+#include "test.h"
+#include "call.h"
 
-int main(int argc, char* argv[]) 
+int main() 
 {
     std::cout << "test" << "\n";
 	return 0;

@@ -10,12 +10,11 @@
 #define CALLTYPE __cdecl
 #define DLL __declspec( dllimport )
 
-#pragma comment(lib, "../Out/LIB/testexport.lib")
-
 #include "test.h"
 
-DLL IMyExport* CALLTYPE CreateMyExportInstance();
-
+extern "C" {
+    DLL IMyExport* CALLTYPE CreateMyExportInstance();
+}
 //#define API_DLL extern "C" __declspec( dllimport )
 /*
 API_DLL IMyExport* CALLTYPE CreateMyExportInstance();

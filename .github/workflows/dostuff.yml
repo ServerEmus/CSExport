@@ -42,4 +42,6 @@ jobs:
         path: Out/*
 
     - name: TEST
-      run: Out/CPP/testexportexe.exe
+      run: |
+        copy Out/DLL/testexport.dll Out/CPP
+        Out/CPP/testexportexe.exe

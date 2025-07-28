@@ -33,7 +33,7 @@ jobs:
       run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64 -p:NativeLib=Static -o Out/LIB
       
     - name: Build CPP DLL
-      run: msbuild cppdll/testexportdll.vcxproj -t:rebuild -p:OutDir="../Out/CPPDLL/" -p:Configuration=Release -p:Platform=x64
+      run: msbuild cpp_dll/testexportdll.vcxproj -t:rebuild -p:OutDir="../Out/CPPDLL/" -p:Configuration=Release -p:Platform=x64
 
     - name: Build EXE
       run: msbuild cpp/testexportexe.vcxproj -t:rebuild -p:OutDir="../Out/CPP/" -p:Configuration=Release -p:Platform=x64

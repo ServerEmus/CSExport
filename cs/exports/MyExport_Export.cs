@@ -3,12 +3,6 @@ using System.Runtime.CompilerServices;
 
 public static unsafe class MyExportExports
 {
-    static MyExportVTable vtable = new MyExportVTable
-    {
-        GetCurrentUserId = &GetCurrentUserIdImpl,
-        Start = &StartImpl,
-        Stop = &StopImpl
-    };
 
     [UnmanagedCallersOnly(EntryPoint = "CreateMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
     public static MyExportInstance* CreateMyExportInstance() // we might need to make it as InPtr.
@@ -16,6 +10,12 @@ public static unsafe class MyExportExports
         var instance = new MyExport();
         var handle = GCHandle.Alloc(instance);
         var native = (MyExportInstance*)NativeMemory.Alloc((nuint)sizeof(MyExportInstance));
+        MyExportVTable vtable = new()
+        {
+            GetCurrentUserId = &MyExport_GetCurrentUserId,
+            Start = &MyExport_Start,
+            Stop = &MyExport_Stop
+        };
         native->VTable = &vtable;
         native->Handle = handle;
         return native;

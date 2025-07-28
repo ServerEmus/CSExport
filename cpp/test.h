@@ -4,7 +4,7 @@
 class IMyExport
 {
 public:
-	virtual uint32 GetCurrentUserId() = 0;
+	virtual unsigned GetCurrentUserId() = 0;
     virtual void Start() = 0;
     virtual void Stop() = 0;
 }

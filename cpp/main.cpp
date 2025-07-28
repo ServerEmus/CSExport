@@ -3,6 +3,6 @@
 
 int main(int argc, char* argv[]) 
 {
-    std::out << "test" << "\n";
+    std::cout << "test" << "\n";
 	return 0;
 }

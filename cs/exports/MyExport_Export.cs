@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 public static unsafe class MyExportExports
 {
 
+    [UnmanagedCallersOnly(EntryPoint = "__imp_CreateMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
     [UnmanagedCallersOnly(EntryPoint = "CreateMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
     public static MyExportInstance* CreateMyExportInstance() // we might need to make it as InPtr.
     {

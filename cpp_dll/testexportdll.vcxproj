@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{96F21549-A7BF-4695-A1B1-B43625B91A14}</ProjectGuid>
+    <ProjectGuid>{660EACE3-8265-4D40-A0E8-F9538EB4977F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>testexport</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>

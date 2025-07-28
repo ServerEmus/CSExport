@@ -4,53 +4,100 @@ using System.Runtime.CompilerServices;
 public static unsafe class MyExportExports
 {
 
-    [UnmanagedCallersOnly(EntryPoint = "__imp_CreateMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
-    [UnmanagedCallersOnly(EntryPoint = "CreateMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
-    public static MyExportInstance* CreateMyExportInstance() // we might need to make it as InPtr.
+    public delegate uint GetCurrentUserId(IntPtr ptr);
+    public delegate void GenericVoidCall(IntPtr ptr);
+
+    [UnmanagedCallersOnly(EntryPoint = "CreateMyExport", CallConvs = [typeof(CallConvCdecl)])]
+    public static IntPtr CreateMyExport(int version)
     {
-        var instance = new MyExport();
-        var handle = GCHandle.Alloc(instance);
-        var native = (MyExportInstance*)NativeMemory.Alloc((nuint)sizeof(MyExportInstance));
-        MyExportVTable vtable = new()
-        {
-            GetCurrentUserId = &MyExport_GetCurrentUserId,
-            Start = &MyExport_Start,
-            Stop = &MyExport_Stop
+        SimpleExport export = new()
+        { 
+            Handle = GCHandle.Alloc(new MyExport()),
+            VTable = CreateMyExportPTRVersion(version)
         };
-        native->VTable = &vtable;
-        native->Handle = handle;
-        return native;
+        return export.ToIntPtr();
     }
 
     [UnmanagedCallersOnly(EntryPoint = "MyExport_GetCurrentUserId", CallConvs = [typeof(CallConvCdecl)])]
-    public static uint MyExport_GetCurrentUserId(IntPtr pThis)
+    public static uint EXPORT_MyExport_GetCurrentUserId(IntPtr pThis)
     {
-        var inst = (MyExportInstance*)pThis;
-        var obj = (MyExport)inst->Handle.Target!;
-        return obj.GetCurrentUserId();
+        return MyExport_GetCurrentUserId(pThis);
     }
 
     [UnmanagedCallersOnly(EntryPoint = "MyExport_Start", CallConvs = [typeof(CallConvCdecl)])]
-    public static void MyExport_Start(IntPtr pThis)
+    public static void EXPORT_MyExport_Start(IntPtr pThis)
     {
-        var inst = (MyExportInstance*)pThis;
-        var obj = (MyExport)inst->Handle.Target!;
-        obj.Start();
+        MyExport_Start(pThis);
     }
 
     [UnmanagedCallersOnly(EntryPoint = "MyExport_Stop", CallConvs = [typeof(CallConvCdecl)])]
+    public static void EXPORT_MyExport_Stop(IntPtr pThis)
+    {
+        MyExport_Stop(pThis);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_Run", CallConvs = [typeof(CallConvCdecl)])]
+    public static void EXPORT_MyExport_Run(IntPtr pThis)
+    {
+        MyExport_Run(pThis);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "FreeMyExport", CallConvs = [typeof(CallConvCdecl)])]
+    public static void FreeMyExport(IntPtr pThis)
+    {
+        if (pThis == IntPtr.Zero) return;
+        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
+        export.Handle.Free();
+        Marshal.FreeHGlobal(pThis);
+    }
+
+    public static IntPtr CreateMyExportPTRVersion(int version)
+    {
+        return version switch 
+        { 
+            1 => new MyExportVTable()
+            {
+                GetCurrentUserId = Marshal.GetFunctionPointerForDelegate(new GetCurrentUserId(MyExport_GetCurrentUserId)),
+                Start = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Start)),
+                Stop = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Stop)),
+            }.ToIntPtr(),
+            2 => new MyExportVTable2()
+            {
+                GetCurrentUserId = Marshal.GetFunctionPointerForDelegate(new GetCurrentUserId(MyExport_GetCurrentUserId)),
+                Start = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Start)),
+                Stop = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Stop)),
+                Run = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Run)),
+            }.ToIntPtr(),
+            _ => 0,
+        };
+    }
+
+
+    public static uint MyExport_GetCurrentUserId(IntPtr pThis)
+    {
+        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
+        var obj = (MyExport)export.Handle.Target!;
+        return obj.GetCurrentUserId();
+    }
+
+    public static void MyExport_Start(IntPtr pThis)
+    {
+        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
+        var obj = (MyExport)export.Handle.Target!;
+        obj.Start();
+    }
+
     public static void MyExport_Stop(IntPtr pThis)
     {
-        var inst = (MyExportInstance*)pThis;
-        var obj = (MyExport)inst->Handle.Target!;
+        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
+        var obj = (MyExport)export.Handle.Target!;
         obj.Stop();
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "DestroyMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
-    public static void DestroyMyExportInstance(MyExportInstance* pThis) // this might not work here.
+    public static void MyExport_Run(IntPtr pThis)
     {
-        if (pThis == null) return;
-        pThis->Handle.Free();
-        NativeMemory.Free(pThis);
+        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
+        var obj = (MyExport)export.Handle.Target!;
+        obj.Run();
     }
 }

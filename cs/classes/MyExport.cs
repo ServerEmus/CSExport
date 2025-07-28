@@ -16,4 +16,9 @@ public class MyExport
     {
         Console.WriteLine("Stopped");
     }
+
+    public void Run()
+    {
+        Console.WriteLine("Run");
+    }
 }

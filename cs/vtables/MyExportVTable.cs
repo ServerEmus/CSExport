@@ -1,17 +1,26 @@
 using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
 
-[StructLayout(LayoutKind.Sequential)]
-public unsafe struct MyExportVTable
+[StructLayout(LayoutKind.Sequential, Pack = 8)]
+public struct MyExportVTable
 {
-    public delegate* unmanaged[Cdecl]<IntPtr, uint> GetCurrentUserId;
-    public delegate* unmanaged[Cdecl]<IntPtr, void> Start;
-    public delegate* unmanaged[Cdecl]<IntPtr, void> Stop;
+    public IntPtr GetCurrentUserId;
+    public IntPtr Start;
+    public IntPtr Stop;
 }
 
-[StructLayout(LayoutKind.Sequential)]
-public unsafe struct MyExportInstance
+[StructLayout(LayoutKind.Sequential, Pack = 8)]
+public struct MyExportVTable2
 {
-    public MyExportVTable* VTable;
+    public IntPtr GetCurrentUserId;
+    public IntPtr Start;
+    public IntPtr Stop;
+    public IntPtr Run;
+}
+
+
+[StructLayout(LayoutKind.Sequential)]
+public struct SimpleExport
+{
+    public IntPtr VTable; // Our VTable
     public GCHandle Handle; // Holds the C# object instance
 }

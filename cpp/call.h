@@ -15,11 +15,12 @@
 
 #include "test.h"
 
-API_DLL IMyExport* CALLTYPE CreateMyExportInstance();
+API_DLL IMyExport* CALLTYPE CreateMyExport(int version);
 API_DLL unsigned CALLTYPE MyExport_GetCurrentUserId( IMyExport* ptr );
 API_DLL void CALLTYPE MyExport_Start( IMyExport* ptr );
-API_DLL void CALLTYPE MyExport_Stop( IMyExport* ptr) ;
-API_DLL void CALLTYPE DestroyMyExportInstance( IMyExport* ptr );
+API_DLL void CALLTYPE MyExport_Stop( IMyExport* ptr);
+API_DLL void CALLTYPE MyExport_Run(IMyExport* ptr);
+API_DLL void CALLTYPE FreeMyExport( IMyExport* ptr );
 
 
 #endif // CALL_H

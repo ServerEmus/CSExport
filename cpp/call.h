@@ -12,6 +12,9 @@
 
 #pragma comment(lib, "../Out/LIB/testexport.lib")
 
+#include "test.h"
+
+DLL IMyExport* CALLTYPE CreateMyExportInstance();
 
 //#define API_DLL extern "C" __declspec( dllimport )
 /*

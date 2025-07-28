@@ -42,4 +42,4 @@ jobs:
         path: Out/*
 
     - name: TEST
-      run: Out/CPP/testexport.exe
+      run: Out/CPP/testexportexe.exe

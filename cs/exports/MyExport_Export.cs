@@ -37,7 +37,7 @@ public static unsafe class MyExportExports
         obj.Start();
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "MyExport_Stop", , CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_Stop", CallConvs = [typeof(CallConvCdecl)])]
     public static void MyExport_Stop(IntPtr pThis)
     {
         var inst = (MyExportInstance*)pThis;
@@ -45,7 +45,7 @@ public static unsafe class MyExportExports
         obj.Stop();
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "DestroyMyExportInstance", , CallConvs = [typeof(CallConvCdecl)])]
+    [UnmanagedCallersOnly(EntryPoint = "DestroyMyExportInstance", CallConvs = [typeof(CallConvCdecl)])]
     public static void DestroyMyExportInstance(MyExportInstance* pThis) // this might not work here.
     {
         if (pThis == null) return;

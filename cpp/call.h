@@ -1,5 +1,11 @@
 #pragma once
 #include "test.h"
+#include <string.h>
+
+#ifdef WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 
 #define CALLTYPE __cdecl
 #define API_DLL extern "C" __declspec( dllimport ) 

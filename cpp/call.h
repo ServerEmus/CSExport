@@ -1,10 +1,11 @@
 #pragma once
 #include "test.h"
 
-#define API_DLL __declspec(dllimport)
+#define CALLTYPE __cdecl
+#define API_DLL extern "C" __declspec( dllimport ) 
 
-API_DLL IMyExport* CreateMyExportInstance();
-API_DLL unsigned MyExport_GetCurrentUserId(IMyExport* ptr);
-API_DLL void MyExport_Start(IMyExport* ptr);
-API_DLL void MyExport_Stop(IMyExport* ptr);
-API_DLL void DestroyMyExportInstance(IMyExport* ptr);
+API_DLL IMyExport* CALLTYPE CreateMyExportInstance();
+API_DLL unsigned CALLTYPE MyExport_GetCurrentUserId( IMyExport* ptr );
+API_DLL void CALLTYPE MyExport_Start( IMyExport* ptr );
+API_DLL void CALLTYPE MyExport_Stop( IMyExport* ptr) ;
+API_DLL void CALLTYPE DestroyMyExportInstance( IMyExport* ptr );

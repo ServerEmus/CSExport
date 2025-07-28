@@ -1,5 +1,6 @@
 #ifndef IMYEXPORT_H
 #define IMYEXPORT_H
+#pragma once
 
 class IMyExport
 {

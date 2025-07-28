@@ -1,8 +1,6 @@
 #ifndef CALL_H
 #define CALL_H
 #pragma once
-#include "test.h"
-#include <string.h>
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -11,8 +9,8 @@
 
 #pragma comment(lib, "testexport.lib")
 
-#define CALLTYPE __cdecl
-#define API_DLL __declspec( dllimport ) 
+//#define CALLTYPE __cdecl
+//#define API_DLL extern "C" __declspec( dllimport )
 /*
 API_DLL IMyExport* CALLTYPE CreateMyExportInstance();
 API_DLL unsigned CALLTYPE MyExport_GetCurrentUserId( IMyExport* ptr );

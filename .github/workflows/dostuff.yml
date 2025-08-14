@@ -36,7 +36,7 @@ jobs:
       run: mkdir Out/DLL_LIB
 
     - name: copy
-      run: copy $GITHUB_WORKSPACE/cs/bin/x64/Release/net9.0/win-x64/native $GITHUB_WORKSPACE}/Out/DLL_LIB
+      run: copy $GITHUB_WORKSPACE/cs/bin/x64/Release/net9.0/win-x64/native $GITHUB_WORKSPACE/Out/DLL_LIB
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5

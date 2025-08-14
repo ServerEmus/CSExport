@@ -37,7 +37,7 @@ int main()
     ptr2->Stop();
     ptr2->Run();
 
-    /*
+    
     std::cout << "ptr!" << (void*)ptr << "\n";
 
     std::cout << "IMyExport size " << sizeof(IMyExport) << std::endl;
@@ -72,7 +72,7 @@ int main()
     for (int i = 0; i < 8; ++i) {
         std::cout << "vtable [" << i << "] = " << vtable_ms[i] << std::endl;
     }
-    */
+    
     FreeMyExport(ptr);
     std::cout << "Free!" << "\n";
 

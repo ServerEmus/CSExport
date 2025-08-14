@@ -16,10 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-#    - name: Setup .NET
-#      uses: actions/setup-dotnet@v4
-#      with:
-#        dotnet-version: 9.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
@@ -36,7 +36,7 @@ jobs:
       run: mkdir Out/DLL_LIB
 
     - name: copy
-      run: copy "cs/bin/x64/Release/net9.0/win-x64/native" "Out/DLL_LIB"
+      run: copy ${{ GITHUB_WORKSPACE }}/cs/bin/x64/Release/net9.0/win-x64/native ${{ GITHUB_WORKSPACE }}/Out/DLL_LIB
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5
@@ -45,7 +45,7 @@ jobs:
         path: Out/*
 
     - name: Build EXE
-      run: msbuild cpp/testexportexe.vcxproj -t:rebuild -p:OutDir="../Out/CPP/" -p:Configuration=Release -p:Platform=x64
+      run: msbuild cpp/testexportexe.vcxproj -t:rebuild -p:OutDir="${{ GITHUB_WORKSPACE }}/Out/CPP/" -p:Configuration=Release -p:Platform=x64
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5

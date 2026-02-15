@@ -2,6 +2,7 @@
 //#include "test.h"
 #include "call.h"
 
+
 struct My_Struct {
     uint64_t x3 = 3333;
     uint64_t y3 = 33333333;
@@ -21,7 +22,6 @@ int main()
 {
     std::cout << "test" << "\n";
 
-    My_Struct ss1{};
     IMyExport* ptr = CreateMyExport(1);
 
     std::cout << ptr->GetCurrentUserId() << "\n";
@@ -36,26 +36,29 @@ int main()
     std::cout << ptr2->GetCurrentUserId() << "\n";
     ptr2->Stop();
     ptr2->Run();
+    ptr2->ETestCall(ETest::k_TEST_Invalid);
+    MyExport_ETestCall((IMyExport*)ptr2, ETest::k_TEST_Testing);
+    ptr2->ETestCall(ETest::k_TEST_Invalid);
 
-    /*
-    std::cout << "ptr!" << (void*)ptr << "\n";
 
-    std::cout << "IMyExport size " << sizeof(IMyExport) << std::endl;
-    std::cout << "My_Struct size " << sizeof(My_Struct) << std::endl;
+    IMyExportV4* ptr4 = (IMyExportV4*)CreateMyExport(4);
+    int ee = 555;
+    ptr4->RefTest(&ee);
+    std::cout << "ee:" << ee << "\n";
+    int e = 5;
+    unsigned ret = ptr2->InputTest(e);
+    std::cout << "e:" << e << "\n";
+    std::cout << "ret:" << ret << "\n";
 
-    uint64_t* layout = (uint64_t*)(void*)ptr;
+    std::cout << "ptr!" << (void*)ptr2 << "\n";
 
-    uint64_t* layout_ms = (uint64_t*)(void*)&ss1;
+    std::cout << "IMyExportV2 size " << sizeof(IMyExportV2) << std::endl;
+
+    uint64_t* layout = (uint64_t*)(void*)ptr2;
 
     // print the layout of
     for (int i = 0; i < 3; ++i) {
         std::cout << "layout [" << i << "] = " << layout[i] << std::endl;
-    }
-    std::cout << "=========" << std::endl;
-
-    // print the layout of
-    for (int i = 0; i < 3; ++i) {
-        std::cout << "layout [" << i << "] = " << layout_ms[i] << std::endl;
     }
     std::cout << "=========" << std::endl;
 
@@ -67,12 +70,6 @@ int main()
 
     std::cout << "=========" << std::endl;
 
-    uint64_t* vtable_ms = (uint64_t*)layout_ms[0];
-
-    for (int i = 0; i < 8; ++i) {
-        std::cout << "vtable [" << i << "] = " << vtable_ms[i] << std::endl;
-    }
-    */
     FreeMyExport(ptr);
     std::cout << "Free!" << "\n";
 

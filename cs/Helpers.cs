@@ -2,12 +2,11 @@
 
 internal static class Helpers
 {
-
-    public static IntPtr ToIntPtr<T>(this T struct_t) where T : struct
+    public static unsafe nint ToIntPtr<T>(this T struct_t) where T : unmanaged
     {
-        var ptr = Marshal.AllocHGlobal(Marshal.SizeOf<T>());
-        Marshal.StructureToPtr(struct_t, ptr, false);
-        return ptr;
+        nint allocatedPointer = Marshal.AllocHGlobal(sizeof(T));
+        T* typeTPointer = (T*)allocatedPointer;
+        *typeTPointer = struct_t;
+        return allocatedPointer;
     }
-
 }

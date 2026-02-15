@@ -20,6 +20,9 @@ API_DLL unsigned CALLTYPE MyExport_GetCurrentUserId( IMyExport* ptr );
 API_DLL void CALLTYPE MyExport_Start( IMyExport* ptr );
 API_DLL void CALLTYPE MyExport_Stop( IMyExport* ptr);
 API_DLL void CALLTYPE MyExport_Run(IMyExport* ptr);
+API_DLL void CALLTYPE MyExport_ETestCall(IMyExport* ptr, ETest test);
+API_DLL unsigned CALLTYPE InputTest(IMyExport* ptr, int e);
+API_DLL void CALLTYPE RefTest(IMyExport* ptr, int* e);
 API_DLL void CALLTYPE FreeMyExport( IMyExport* ptr );
 
 

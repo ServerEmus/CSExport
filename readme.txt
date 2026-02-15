@@ -1,1 +1,1 @@
-test
+This is a test for exporting as NativeAOT C# dll and using as a library for c/c++ side.

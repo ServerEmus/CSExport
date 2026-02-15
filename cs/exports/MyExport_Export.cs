@@ -1,18 +1,16 @@
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using testexport.StaticCalls;
+using testexport.vtables;
 
 public static unsafe class MyExportExports
 {
-
-    public delegate uint GetCurrentUserId(IntPtr ptr);
-    public delegate void GenericVoidCall(IntPtr ptr);
-
     [UnmanagedCallersOnly(EntryPoint = "CreateMyExport", CallConvs = [typeof(CallConvCdecl)])]
     public static IntPtr CreateMyExport(int version)
     {
         SimpleExport export = new()
-        { 
-            Handle = GCHandle.Alloc(new MyExport()),
+        {
+            version = version,
             VTable = CreateMyExportPTRVersion(version)
         };
         return export.ToIntPtr();
@@ -21,83 +19,94 @@ public static unsafe class MyExportExports
     [UnmanagedCallersOnly(EntryPoint = "MyExport_GetCurrentUserId", CallConvs = [typeof(CallConvCdecl)])]
     public static uint EXPORT_MyExport_GetCurrentUserId(IntPtr pThis)
     {
-        return MyExport_GetCurrentUserId(pThis);
+        return MyExportCalls.GetCurrentUserId(pThis);
     }
 
     [UnmanagedCallersOnly(EntryPoint = "MyExport_Start", CallConvs = [typeof(CallConvCdecl)])]
     public static void EXPORT_MyExport_Start(IntPtr pThis)
     {
-        MyExport_Start(pThis);
+        MyExportCalls.Start(pThis);
     }
 
     [UnmanagedCallersOnly(EntryPoint = "MyExport_Stop", CallConvs = [typeof(CallConvCdecl)])]
     public static void EXPORT_MyExport_Stop(IntPtr pThis)
     {
-        MyExport_Stop(pThis);
+        MyExportCalls.Stop(pThis);
     }
 
     [UnmanagedCallersOnly(EntryPoint = "MyExport_Run", CallConvs = [typeof(CallConvCdecl)])]
     public static void EXPORT_MyExport_Run(IntPtr pThis)
     {
-        MyExport_Run(pThis);
+        MyExportCalls.Run(pThis);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_ETestCall", CallConvs = [typeof(CallConvCdecl)])]
+    public static void EXPORT_MyExport_ETestCall(IntPtr pThis, ETest etest)
+    {
+        MyExportCalls.ETestCall(pThis, etest);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_InputTest", CallConvs = [typeof(CallConvCdecl)])]
+    public static uint EXPORT_MyExport_InputTest(IntPtr ptr, int e)
+    {
+        return MyExportCalls.InputTest(ptr, e);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "MyExport_RefTest", CallConvs = [typeof(CallConvCdecl)])]
+    public static void EXPORT_MyExport_RefTest(IntPtr ptr, IntPtr e)
+    {
+        int _e = Marshal.ReadInt32(e);
+        MyExportCalls.RefTest(ptr, ref _e);
+        Marshal.WriteInt32(e, _e);
     }
 
     [UnmanagedCallersOnly(EntryPoint = "FreeMyExport", CallConvs = [typeof(CallConvCdecl)])]
     public static void FreeMyExport(IntPtr pThis)
     {
-        if (pThis == IntPtr.Zero) return;
-        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
-        export.Handle.Free();
+        if (pThis == IntPtr.Zero) 
+            return;
         Marshal.FreeHGlobal(pThis);
     }
-
+   
     public static IntPtr CreateMyExportPTRVersion(int version)
     {
-        return version switch 
-        { 
+        return version switch
+        {
             1 => new MyExportVTable()
             {
-                GetCurrentUserId = Marshal.GetFunctionPointerForDelegate(new GetCurrentUserId(MyExport_GetCurrentUserId)),
-                Start = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Start)),
-                Stop = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Stop)),
+                GetCurrentUserId = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.GetCurrentUserId],
+                Start = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Start],
+                Stop = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Stop],
             }.ToIntPtr(),
             2 => new MyExportVTable2()
             {
-                GetCurrentUserId = Marshal.GetFunctionPointerForDelegate(new GetCurrentUserId(MyExport_GetCurrentUserId)),
-                Start = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Start)),
-                Stop = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Stop)),
-                Run = Marshal.GetFunctionPointerForDelegate(new GenericVoidCall(MyExport_Run)),
+                GetCurrentUserId = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.GetCurrentUserId],
+                Start = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Start],
+                Stop = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Stop],
+                Run = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Run],
+                ETestCall = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.ETestCall],
+                InputTest = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.InputTest],
+            }.ToIntPtr(),
+            3 => new MyExportVTable3()
+            {
+                GetCurrentUserId = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.GetCurrentUserId],
+                Start = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Start],
+                Stop = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Stop],
+                Run = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Run],
+                ETestCall = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.ETestCall],
+                InputTest = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.InputTest],
+            }.ToIntPtr(),
+            4 => new MyExportVTable4()
+            {
+                GetCurrentUserId = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.GetCurrentUserId],
+                Start = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Start],
+                Stop = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Stop],
+                Run = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.Run],
+                ETestCall = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.ETestCall],
+                InputTest = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.InputTest],
+                RefTest = MyExportCalls.FunctionPointers[(int)MyExportCalls.FunctionCalls.RefTest],
             }.ToIntPtr(),
             _ => 0,
         };
-    }
-
-
-    public static uint MyExport_GetCurrentUserId(IntPtr pThis)
-    {
-        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
-        var obj = (MyExport)export.Handle.Target!;
-        return obj.GetCurrentUserId();
-    }
-
-    public static void MyExport_Start(IntPtr pThis)
-    {
-        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
-        var obj = (MyExport)export.Handle.Target!;
-        obj.Start();
-    }
-
-    public static void MyExport_Stop(IntPtr pThis)
-    {
-        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
-        var obj = (MyExport)export.Handle.Target!;
-        obj.Stop();
-    }
-
-    public static void MyExport_Run(IntPtr pThis)
-    {
-        SimpleExport export = Marshal.PtrToStructure<SimpleExport>(pThis);
-        var obj = (MyExport)export.Handle.Target!;
-        obj.Run();
     }
 }

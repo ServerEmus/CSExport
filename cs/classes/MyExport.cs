@@ -1,24 +1,49 @@
-public class MyExport
+public static class MyExport
 {
-    public uint UserId = 42;
+    static uint UserId = 42;
+    static bool IsRunning = false;
+    static int count = 0;
 
-    public uint GetCurrentUserId()
+    public static uint GetCurrentUserId()
     {
-        Console.WriteLine("GetCurrentUserId");
         return UserId;
     }
-    public void Start()
+    public static void Start()
     {
-        Console.WriteLine("Start");
         UserId++;
+        IsRunning = true;
     }
-    public void Stop()
+    public static void Stop()
     {
-        Console.WriteLine("Stopped");
+        IsRunning = false;
     }
 
-    public void Run()
+    public static void Run()
     {
-        Console.WriteLine("Run");
+        if (IsRunning)
+            count++;
+    }
+
+    public static void ETestCall(ETest etest)
+    {
+
+    }
+
+    public static uint InputTest(int e)
+    {
+        var ret = e += 1;
+        return (uint)ret;
+    }
+
+    public static void RefTest(ref int ref_int_test)
+    {
+        ref_int_test += 1;
     }
 }
+
+public enum ETest
+{
+    k_TEST_Invalid = 0,
+    k_TEST_Testing = 1,
+    k_TEST_Max = 2
+};

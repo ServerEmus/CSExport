@@ -16,10 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-#    - name: Setup .NET
-#      uses: actions/setup-dotnet@v4
-#      with:
-#        dotnet-version: 9.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
@@ -27,18 +27,16 @@ jobs:
         msbuild-architecture: x64
 
     - name: Build DLL
-      run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64 -o Out/DLL
+      run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64
 
-    - name: Build LIB
-      run: dotnet publish cs/testexport.csproj -r win-x64 -c:Release -p:Platform=x64 -p:NativeLib=Static -o Out/LIB
-      
     - name: Build CPP DLL
       run: msbuild cpp_dll/testexportdll.vcxproj -t:rebuild -p:OutDir="../Out/CPPDLL/" -p:Configuration=Release -p:Platform=x64
 
-    - name: TEST
-      run: |
-        mkdir Out/DLL_LIB
-        copy "cs/bin/Release/net9.0/win-x64/native" "Out/DLL_LIB"
+    - name: mkdir
+      run: mkdir Out/DLL_LIB
+
+    - name: copy
+      run: copy cs/bin/x64/Release/net9.0/win-x64/native Out/DLL_LIB
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5
@@ -57,5 +55,5 @@ jobs:
 
     - name: TEST
       run: |
-        copy Out/DLL/testexport.dll Out/CPP
+        copy Out/DLL_LIB/testexport.dll Out/CPP
         Out/CPP/testexportexe.exe
